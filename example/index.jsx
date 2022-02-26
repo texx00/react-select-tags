@@ -1,8 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "../node_modules/bootstrap/dist/css/bootstrap.css";
-
-import "../src/styles/index.scss";
 import ReactTagInput from "../src/index";
 
 const root = document.getElementById("root");
