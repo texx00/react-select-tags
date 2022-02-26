@@ -15,6 +15,7 @@
   "scripts": {
     "build": "rm -rf dist && parcel build",
     "build-example": "cd example && npm install && rm -rf example/dist && parcel build index.html",
+    "publish-example": "git checkout gh-pages && rm -rf *.js *.map *.css index.html && mv example/dist/* . && git add *.js *.map *.css index.html && git commit -m 'Update demo' && git push && git checkout main",
     "example": "parcel ./example/index.html"
   },
   "keywords": [
