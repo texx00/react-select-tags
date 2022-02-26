@@ -1,0 +1,53 @@
+{
+  "name": "react-select3",
+  "description": "A simple tag input component for React with editable tags",
+  "version": "0.0.1",
+  "main": "./dist/main.js",
+  "module": "./dist/module.js",
+  "source": "src/index.jsx",
+  "private": false,
+  "sideEffects": false,
+  "homepage": "https://develatio.github.com/react-select3",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Develatio/react-select3"
+  },
+  "scripts": {
+    "build": "rm -rf dist && parcel build",
+    "build-example": "cd example && npm install && rm -rf example/dist && parcel build index.html",
+    "example": "parcel ./example/index.html"
+  },
+  "keywords": [
+    "input tag",
+    "tag input",
+    "react input tag",
+    "react tag input component",
+    "react tag input",
+    "react select",
+    "react multiselect"
+  ],
+  "author": "Develatio",
+  "license": "MIT",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "targets": {
+    "main": {
+      "optimize": true
+    },
+    "module": {
+      "optimize": true
+    }
+  },
+  "dependencies": {
+    "@swc/helpers": "^0.3.5",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.3.2",
+    "bootstrap": "^5.0.0",
+    "parcel": "^2.3.2",
+    "rollup": "^1.19.4",
+    "sass": "^1.2.3",
+    "uglify-js": "^3.6.0"
+  }
+}
