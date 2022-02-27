@@ -1,12 +1,13 @@
 {
   "name": "react-select-tags",
   "description": "A simple tag input component for React with editable tags",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "./dist/main.js",
   "module": "./dist/module.js",
   "source": "src/index.jsx",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "private": false,
   "sideEffects": false,
