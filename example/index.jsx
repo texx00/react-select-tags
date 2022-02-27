@@ -69,7 +69,7 @@ function Example() {
   return (
     <div className="container pt-5" style={{maxWidth: "800px"}}>
 
-      <h1>React Select3</h1>
+      <h1>React Select5</h1>
 
       <div className="row mt-5">
         <div className="col">

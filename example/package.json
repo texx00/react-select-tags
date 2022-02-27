@@ -8,7 +8,7 @@
   },
   "targets": {
     "default": {
-      "publicUrl": "/react-select3"
+      "publicUrl": "/react-select5"
     }
   }
 }

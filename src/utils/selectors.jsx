@@ -1,5 +1,5 @@
 export const classSelectors = {
-  component: "react-select3",
+  component: "react-select5",
 
   inputWrapper: "inputWrapper",
 
