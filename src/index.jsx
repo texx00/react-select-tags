@@ -309,6 +309,7 @@ export default class ReactSelectTags extends React.Component {
           className={`
             ${classSelectors.inputWrapper}
             ${invalid ? classSelectors.inputInvalid : ""}
+            ${tags.length > 0 ? "has-selected-tags" : ""}
           `}
         >
           <div className={classSelectors.tags} ref={this.tagsRef}>
