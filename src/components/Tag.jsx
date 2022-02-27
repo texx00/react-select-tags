@@ -22,7 +22,6 @@ export class Tag extends React.Component {
         this.setState({ invalid: false });
         update(index, input);
       } else {
-        // TODO: set error state? Leave old input?
         this.setState({ invalid: true });
       }
     } else {
