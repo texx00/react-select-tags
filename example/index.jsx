@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ReactSelect3 from "../src/index";
+import ReactSelectTags from "../src/index";
 
 const root = document.getElementById("root");
 
@@ -69,11 +69,11 @@ function Example() {
   return (
     <div className="container pt-5" style={{maxWidth: "800px"}}>
 
-      <h1>React Select5</h1>
+      <h1>React Select Tags</h1>
 
       <div className="row mt-5">
         <div className="col">
-          <ReactSelect3
+          <ReactSelectTags
             {...settings}
             values={values}
             onChange={(value) => setValues(value)}

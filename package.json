@@ -1,5 +1,5 @@
 {
-  "name": "react-select5",
+  "name": "react-select-tags",
   "description": "A simple tag input component for React with editable tags",
   "version": "0.0.1",
   "main": "./dist/main.js",
@@ -7,10 +7,10 @@
   "source": "src/index.jsx",
   "private": false,
   "sideEffects": false,
-  "homepage": "https://develatio.github.com/react-select5",
+  "homepage": "https://develatio.github.com/react-select-tags",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Develatio/react-select5"
+    "url": "https://github.com/Develatio/react-select-tags"
   },
   "scripts": {
     "build": "rm -rf dist && parcel build",

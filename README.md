@@ -1,8 +1,8 @@
-# React Select5
+# React Select Tags
 
 A simple tag input component for React with editable tags
 
-Check out the [demo](https://develatio.github.io/react-select5/)
+Check out the [demo](https://develatio.github.io/react-select-tags/)
 
 Install the package from [npm]()
 

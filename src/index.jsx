@@ -2,10 +2,10 @@ import React from "react";
 import { Tag } from "./components/Tag";
 import { Option } from "./components/Option";
 import { Options } from "./components/Options";
-import { filter, validator } from "./utils/functions";
 import { classSelectors } from "./utils/selectors";
+import { filter, validator } from "./utils/functions";
 
-export default class ReactSelect3 extends React.Component {
+export default class ReactSelectTags extends React.Component {
   constructor(props) {
     super(props);
 
