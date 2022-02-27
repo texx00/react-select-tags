@@ -1,6 +1,8 @@
 export const classSelectors = {
   component: "react-select-tags",
 
+  mainWrapper: "mainWrapper",
+
   inputWrapper: "inputWrapper",
 
   tags: "tags",

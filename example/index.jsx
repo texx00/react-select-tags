@@ -82,7 +82,7 @@ function Example() {
       </div>
 
       <div className="row mt-5">
-        <div className="col-12  mb-3">
+        <div className="col-12 mb-3">
           <label htmlFor="placeholder" className="form-label">Placeholder</label>
           <input
             id="placeholder"

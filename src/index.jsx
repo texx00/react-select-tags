@@ -305,68 +305,73 @@ export default class ReactSelectTags extends React.Component {
         `}
       >
 
-        <div
-          className={`
-            ${classSelectors.inputWrapper}
-            ${invalid ? classSelectors.inputInvalid : ""}
-            ${tags.length > 0 ? "has-selected-tags" : ""}
-          `}
-        >
-          <div className={classSelectors.tags} ref={this.tagsRef}>
-            {tags.map((tag, index) => (
-              <Tag
-                key={tag.value}
-                tag={tag}
-                index={index}
-                editable={isEditable}
-                readOnly={readOnly}
-                inputRef={this.inputRef}
-                update={(index, value) => this.updateTag(index, value)}
-                remove={index => this.removeTag(index)}
-                validator={value => this.validateTag(value)}
-                removeOnBackspace={removeOnBackspace}
+        <div className={classSelectors.mainWrapper}>
+
+          <div
+            className={`
+              ${classSelectors.inputWrapper}
+              ${invalid ? classSelectors.inputInvalid : ""}
+              ${tags.length > 0 ? "has-selected-tags" : ""}
+            `}
+          >
+            <div className={classSelectors.tags} ref={this.tagsRef}>
+              {tags.map((tag, index) => (
+                <Tag
+                  key={tag.value}
+                  tag={tag}
+                  index={index}
+                  editable={isEditable}
+                  readOnly={readOnly}
+                  inputRef={this.inputRef}
+                  update={(index, value) => this.updateTag(index, value)}
+                  remove={index => this.removeTag(index)}
+                  validator={value => this.validateTag(value)}
+                  removeOnBackspace={removeOnBackspace}
+                />
+              ))}
+            </div>
+
+            {
+              (overflowedTags > 0 && !showOverflowedTags) &&
+              <div
+                className={classSelectors.expander}
+                onClick={() => this.setState({ showOverflowedTags: !showOverflowedTags })}
+              >+ { overflowedTags }</div>
+            }
+
+            {showInput &&
+              <input
+                ref={this.inputRef}
+                value={input}
+                spellCheck="false"
+                className={classSelectors.input}
+                placeholder={placeholder}
+                onFocus={(e) => this.onFocus(e)}
+                onBlur={() => this.onBlur()}
+                onChange={(e) => this.onInputChange(e)}
+                onKeyDown={(e) => this.onInputKeyDown(e)}
+                onClick={() => showOptionsList ? this.closeOptions() : this.openOptions()}
               />
-            ))}
-          </div>
+            }
+          </div> {/* </inputWrapper> */}
 
-          {
-            (overflowedTags > 0 && !showOverflowedTags) &&
-            <div
-              className={classSelectors.expander}
-              onClick={() => this.setState({ showOverflowedTags: !showOverflowedTags })}
-            >+ { overflowedTags }</div>
+          {showOptionsList &&
+            <Options
+              OptionComponent={OptionComponent}
+              options={options}
+              filter={this.props.filter ?? filter}
+              select={(value) => {
+                this.addTag(value);
+
+                if(!keepOptionsOpenAfterSelect) {
+                  this.closeOptions();
+                }
+              }}
+            ></Options>
           }
 
-          {showInput &&
-            <input
-              ref={this.inputRef}
-              value={input}
-              spellCheck="false"
-              className={classSelectors.input}
-              placeholder={placeholder}
-              onFocus={(e) => this.onFocus(e)}
-              onBlur={() => this.onBlur()}
-              onChange={(e) => this.onInputChange(e)}
-              onKeyDown={(e) => this.onInputKeyDown(e)}
-              onClick={() => showOptionsList ? this.closeOptions() : this.openOptions()}
-            />
-          }
-        </div> {/* </inputWrapper> */}
+        </div> {/* mainWrapper */}
 
-        {showOptionsList &&
-          <Options
-            OptionComponent={OptionComponent}
-            options={options}
-            filter={this.props.filter ?? filter}
-            select={(value) => {
-              this.addTag(value);
-
-              if(!keepOptionsOpenAfterSelect) {
-                this.closeOptions();
-              }
-            }}
-          ></Options>
-        }
       </div>
     );
   }
