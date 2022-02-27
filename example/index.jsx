@@ -1,31 +1,38 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ReactTagInput from "../src/index";
+import ReactSelect3 from "../src/index";
 
 const root = document.getElementById("root");
 
+const OptionComponent = (props) => {
+  return (
+    <div style={{
+      backgroundColor: props.option.value,
+    }}>
+      <span style={{
+        filter: "invert(1)",
+        mixBlendMode: "difference",
+      }}>
+        {`${props.option.label} (${props.option.value})`}
+      </span>
+    </div>
+  )
+}
+
 const initialSettings = {
   options: [
-    {label: "Machine - 1", value: "machine-1"},
-    {label: "Machine - 2", value: "machine-2"},
-    {label: "Machine - 3", value: "machine-3"},
-    {label: "Machine - 4", value: "machine-4"},
-    {label: "Machine - 5", value: "machine-5"},
-    {label: "Machine - 6", value: "machine-6"},
-    {label: "Machine - 7", value: "machine-7"},
-    {label: "Machine - 8", value: "machine-8"},
-    {label: "Machine - 9", value: "machine-9"},
-    {label: "Machine - 10", value: "machine-10"},
-    {label: "Machine - 11", value: "machine-11"},
-    {label: "Machine - 12", value: "machine-12"},
-    {label: "Machine - 13", value: "machine-13"},
-    {label: "Machine - 14", value: "machine-14"},
-    {label: "Machine - 15", value: "machine-15"},
-    {label: "Machine - 16", value: "machine-16"},
-    {label: "Machine - 17", value: "machine-17"},
-    {label: "Machine - 18", value: "machine-18"},
-    {label: "Machine - 19", value: "machine-19"},
-    {label: "Machine - 20", value: "machine-20"},
+    {label: "Green", value: "#66B132"},
+    {label: "Blue-green", value: "#3E92CE"},
+    {label: "Blue", value: "#3C47FE"},
+    {label: "Blue-violet", value: "#3E02A4"},
+    {label: "Violet", value: "#8601AF"},
+    {label: "Red-violet", value: "#A7194B"},
+    {label: "Red", value: "#F12815"},
+    {label: "Red-orange", value: "#F2530B"},
+    {label: "Orange", value: "#F49906"},
+    {label: "Yellow-orange", value: "#F6BC02"},
+    {label: "Yellow", value: "#FAFE33"},
+    {label: "Yellow-green", value: "#D0EA2B"},
 
     (searchPattern) => {
       return new Promise((resolve, reject) => {
@@ -47,13 +54,14 @@ const initialSettings = {
   editable: true,
   readOnly: false,
   removeOnBackspace: true,
-  validator: undefined,
+  validator: null,
   keepOptionsOpenAfterSelect: false,
+  OptionComponent: null,
 };
 
 function Example() {
   const [values, setValues] = React.useState([
-    "machine-1", "machine-2",
+    "#66B132", "#3E92CE",
   ]);
   const [settings, setSettings] = React.useState(initialSettings);
   console.log(values, settings);
@@ -65,7 +73,7 @@ function Example() {
 
       <div className="row mt-5">
         <div className="col">
-          <ReactTagInput
+          <ReactSelect3
             {...settings}
             values={values}
             onChange={(value) => setValues(value)}
@@ -155,11 +163,25 @@ function Example() {
               className="form-check-input"
               type="checkbox"
               checked={!!settings.validator}
-              onChange={(e) => setSettings({ ...settings, validator: e.target.checked ? (val) => val.indexOf("@") !== -1 : undefined })}
+              onChange={(e) => setSettings({ ...settings, validator: e.target.checked ? (val) => val.indexOf("@") !== -1 : null })}
             />
             <label className="form-check-label" htmlFor="validator">Custom validator (validate if input contains "@")</label>
           </div>
         </div>
+
+        <div className="col-12 mb-3">
+          <div className="form-check">
+            <input
+              id="OptionComponent"
+              className="form-check-input"
+              type="checkbox"
+              checked={!!settings.OptionComponent}
+              onChange={(e) => setSettings({ ...settings, OptionComponent: e.target.checked ? OptionComponent : null })}
+            />
+            <label className="form-check-label" htmlFor="OptionComponent">Custom "Option" component</label>
+          </div>
+        </div>
+
       </div>
     </div>
   );

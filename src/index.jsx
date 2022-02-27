@@ -1,10 +1,11 @@
 import React from "react";
 import { Tag } from "./components/Tag";
+import { Option } from "./components/Option";
 import { Options } from "./components/Options";
 import { filter, validator } from "./utils/functions";
 import { classSelectors } from "./utils/selectors";
 
-export default class ReactTagInput extends React.Component {
+export default class ReactSelect3 extends React.Component {
   constructor(props) {
     super(props);
 
@@ -253,6 +254,7 @@ export default class ReactTagInput extends React.Component {
       maxTags,
       placeholder,
       keepOptionsOpenAfterSelect,
+      OptionComponent,
     } = this.props;
 
     // If false, tags can't be added / removed
@@ -280,6 +282,8 @@ export default class ReactTagInput extends React.Component {
     placeholder = placeholder ?? "Type and press enter";
 
     const options = this.getOptions().filter(opt => !values.includes(opt.value));
+
+    OptionComponent = OptionComponent ? OptionComponent : Option;
 
     return (
       <div
@@ -340,6 +344,7 @@ export default class ReactTagInput extends React.Component {
 
         {showOptionsList &&
           <Options
+            OptionComponent={OptionComponent}
             options={options}
             filter={this.props.filter ?? filter}
             select={(value) => {

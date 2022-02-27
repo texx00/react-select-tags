@@ -42,7 +42,10 @@ export class Options extends React.Component {
   }
 
   render() {
-    const { options } = this.props;
+    const {
+      options,
+      OptionComponent,
+    } = this.props;
 
     const { asyncOptions, loading } = this.state;
 
@@ -83,10 +86,9 @@ export class Options extends React.Component {
               return (
                 <div
                   key={option.value}
-                  className={classSelectors.option}
                   onClick={() => this.props.select(option.value)}
                 >
-                  {option.label}
+                  <OptionComponent option={option}></OptionComponent>
                 </div>
               )
             })

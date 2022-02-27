@@ -306,22 +306,17 @@ $rs3TagBorderRadius: 0.25rem;
 
     .options {
       overflow: auto;
+      user-select: none;
+      cursor: default;
 
       .option {
         display: block;
         width: 100%;
         padding: .25rem 1.5rem;
-        clear: both;
         font-weight: 400;
         color: $rs3InputsTextColor;
-        text-align: inherit;
-        white-space: nowrap;
-        background-color: transparent;
-        border: 0;
         font-size: 1rem;
         line-height: 1.5;
-        user-select: none;
-        cursor: default;
 
         &:hover {
           color: #16181b;
