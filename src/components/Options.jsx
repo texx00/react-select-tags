@@ -1,20 +1,22 @@
 import React from "react";
 import { classSelectors } from "../utils/selectors";
 
-let asyncOptionsCache = [];
-
 export class Options extends React.Component {
   constructor(props) {
     super(props);
 
-    const { cacheAsyncOptions, options } = this.props;
+    const {
+      options,
+      cacheAsyncOptions,
+      asyncOptionsCacheStore,
+    } = this.props;
 
     this._isMounted = false;
 
     this.state = {
       filter: "",
       asyncFns: options.filter(opt => typeof opt == "function"),
-      asyncOptions: cacheAsyncOptions ? asyncOptionsCache : [],
+      asyncOptions: cacheAsyncOptions ? asyncOptionsCacheStore.current : [],
       loading: false,
     };
   }
@@ -30,26 +32,19 @@ export class Options extends React.Component {
 
   loadAsyncOptions(searchPattern) {
     const { asyncFns } = this.state;
+    const { asyncOptionsCacheStore } = this.props;
 
     this.setState({ loading: true });
 
     Promise.all(asyncFns.map(fn => fn(searchPattern))).then(data => {
       data = data.reduce((v, a) => v.concat(a), []);
 
-      // Naive comparison (these are arrays and the data they contain should be
-      // in the same order)
-      const eq = JSON.stringify(asyncOptionsCache) == JSON.stringify(data);
+      asyncOptionsCacheStore.current = data;
 
-      asyncOptionsCache = data;
-
-      // We use "eq" because we don't want to update the options (causing a DOM
-      // reflow) if there are no new options to be rendered
-      if(!eq && this._isMounted) {
-        this.setState({
-          asyncOptions: data,
-          loading: false,
-        });
-      }
+      this._isMounted && this.setState({
+        asyncOptions: data,
+        loading: false,
+      });
     });
   }
 
@@ -117,6 +112,6 @@ export class Options extends React.Component {
           }
         </div>
       </div>
-    )
+    );
   }
 }

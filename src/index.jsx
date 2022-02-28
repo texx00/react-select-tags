@@ -30,6 +30,8 @@ export default class ReactSelectTags extends React.Component {
     this.handleClickOutside = this.handleClickOutside.bind(this);
 
     this._alreadyHandledClickOutside = true;
+
+    this.asyncOptionsCacheStore = { current: [] };
   }
 
   __updateOverflowedTagsCounter() {
@@ -366,6 +368,7 @@ export default class ReactSelectTags extends React.Component {
             <Options
               tags={tags}
               cacheAsyncOptions={cacheAsyncOptions}
+              asyncOptionsCacheStore={this.asyncOptionsCacheStore}
               OptionComponent={OptionComponent}
               options={options}
               filter={this.props.filter ?? filter}
