@@ -36,12 +36,20 @@ export class Options extends React.Component {
     Promise.all(asyncFns.map(fn => fn(searchPattern))).then(data => {
       data = data.reduce((v, a) => v.concat(a), []);
 
+      // Naive comparison (these are arrays and the data they contain should be
+      // in the same order)
+      const eq = JSON.stringify(asyncOptionsCache) == JSON.stringify(data);
+
       asyncOptionsCache = data;
 
-      this._isMounted && this.setState({
-        asyncOptions: data,
-        loading: false,
-      });
+      // We use "eq" because we don't want to update the options (causing a DOM
+      // reflow) if there are no new options to be rendered
+      if(eq && this._isMounted) {
+        this.setState({
+          asyncOptions: data,
+          loading: false,
+        });
+      }
     });
   }
 
