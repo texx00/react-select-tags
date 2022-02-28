@@ -26,6 +26,12 @@ $rs3TagBorderRadius: 0.25rem;
     box-sizing: border-box;
   }
 
+  &.showOverflowedTags {
+    .inputWrapper {
+      height: auto !important;
+    }
+  }
+
   .mainWrapper {
     position: relative;
 
@@ -48,17 +54,12 @@ $rs3TagBorderRadius: 0.25rem;
       }
     }
 
-    &.showOverflowedTags {
-      .inputWrapper {
-        height: auto;
-      }
-    }
-
     .tags {
       display: flex;
       flex-wrap: wrap;
       flex-shrink: 1;
       align-items: center;
+      justify-content: flex-start;
       overflow: hidden;
       height: 100%;
     }
@@ -121,6 +122,7 @@ $rs3TagBorderRadius: 0.25rem;
       background: $rs3TagBgColor;
       border-radius: $rs3TagBorderRadius;
       margin: 0.1875em 0.1875em;
+      max-width: calc(100% - 3px);
 
       &.locked {
         cursor: default;
@@ -157,9 +159,11 @@ $rs3TagBorderRadius: 0.25rem;
       .tagWrapper {
         display: flex;
         flex-direction: row;
+        max-width: 100%;
 
         .contentWrapper {
           position: relative;
+          max-width: calc(100% - 27px);
 
           .content {
             border: 1px solid $rs3TagBgColor;
@@ -168,6 +172,8 @@ $rs3TagBorderRadius: 0.25rem;
             display: flex;
             align-items: center;
             white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
             padding: 0.1875em * 1.2 0.1875em * 3 0.1875em * 1.2 0.1875em * 3;
           }
 
