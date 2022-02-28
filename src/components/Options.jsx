@@ -1,18 +1,20 @@
 import React from "react";
 import { classSelectors } from "../utils/selectors";
 
+let asyncOptionsCache = [];
+
 export class Options extends React.Component {
   constructor(props) {
     super(props);
 
-    const { options } = this.props;
+    const { cacheAsyncOptions, options } = this.props;
 
     this._isMounted = false;
 
     this.state = {
       filter: "",
       asyncFns: options.filter(opt => typeof opt == "function"),
-      asyncOptions: [],
+      asyncOptions: cacheAsyncOptions ? asyncOptionsCache : [],
       loading: false,
     };
   }
@@ -34,6 +36,8 @@ export class Options extends React.Component {
     Promise.all(asyncFns.map(fn => fn(searchPattern))).then(data => {
       data = data.reduce((v, a) => v.concat(a), []);
 
+      asyncOptionsCache = data;
+
       this._isMounted && this.setState({
         asyncOptions: data,
         loading: false,
@@ -43,13 +47,23 @@ export class Options extends React.Component {
 
   render() {
     const {
+      tags,
       options,
       OptionComponent,
     } = this.props;
 
     const { asyncOptions, loading } = this.state;
 
-    const opts = options.filter(opt => typeof opt != "function").concat(asyncOptions);
+    let opts = options.filter(opt => typeof opt != "function").concat(asyncOptions);
+
+    // Filter the options by the searchPatter (if any)
+    if(this.state.filter) {
+      opts = this.props.filter(opts, this.state.filter);
+    }
+
+    // Remove the options that are already selected
+    const selectedValues = tags.map(tag => tag.value);
+    opts = opts.filter(opt => !selectedValues.includes(opt.value));
 
     return (
       <div className={classSelectors.optionsWrapper}>
@@ -82,7 +96,7 @@ export class Options extends React.Component {
 
         <div className={classSelectors.options}>
           {
-            this.props.filter(opts, this.state.filter).map(option => {
+            opts.map(option => {
               return (
                 <div
                   key={option.value}

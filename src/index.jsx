@@ -213,18 +213,8 @@ export default class ReactSelectTags extends React.Component {
     this.props.onChange(values);
   }
 
-  getOptions() {
-    let { options } = this.props;
-
-    options = options ?? []; // default to an array
-    //options = JSON.parse(JSON.stringify(options));
-
-    return options;
-  }
-
   getTags() {
-    const { values } = this.props;
-    const options = this.getOptions();
+    const { values, options } = this.props;
 
     const vals = values.map(value => {
       let obj = options.find(opt => opt.value == value);
@@ -257,14 +247,15 @@ export default class ReactSelectTags extends React.Component {
     } = this.state;
 
     let {
-      values,
+      options,
       readOnly,
       editable,
-      removeOnBackspace,
       maxTags,
       placeholder,
-      keepOptionsOpenAfterSelect,
       OptionComponent,
+      removeOnBackspace,
+      cacheAsyncOptions,
+      keepOptionsOpenAfterSelect,
     } = this.props;
 
     // If false, tags can't be added / removed
@@ -279,6 +270,11 @@ export default class ReactSelectTags extends React.Component {
     // Keep the options list open after selection
     keepOptionsOpenAfterSelect = !!keepOptionsOpenAfterSelect; // force boolean
 
+    // If "true" the asynchronous options will be preserved after the options
+    // list gets unmounted, and rendered along with the static options on the
+    // next mount.
+    cacheAsyncOptions = !!(cacheAsyncOptions ?? true); // force boolean, default to true
+
     // Check if we reached the max tags added
     maxTags = Number(maxTags) || 0;
     const maxTagsReached = maxTags !== 0 ? tags.length >= maxTags : false;
@@ -290,8 +286,6 @@ export default class ReactSelectTags extends React.Component {
     const showOptionsList = showOptions && !maxTagsReached;
 
     placeholder = placeholder ?? "Type and press enter";
-
-    const options = this.getOptions().filter(opt => !values.includes(opt.value));
 
     OptionComponent = OptionComponent ? OptionComponent : Option;
 
@@ -357,6 +351,8 @@ export default class ReactSelectTags extends React.Component {
 
           {showOptionsList &&
             <Options
+              tags={tags}
+              cacheAsyncOptions={cacheAsyncOptions}
               OptionComponent={OptionComponent}
               options={options}
               filter={this.props.filter ?? filter}
