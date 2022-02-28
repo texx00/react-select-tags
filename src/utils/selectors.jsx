@@ -14,7 +14,10 @@ export const classSelectors = {
   options: "options",
   optionsWrapper: "optionsWrapper",
   filter: "filter",
+
   loader: "loader",
+  spinner: "spinner",
+
   message: "message",
   option: "option",
 

@@ -53,6 +53,7 @@ export class Options extends React.Component {
       tags,
       options,
       OptionComponent,
+      NotificatorComponent,
     } = this.props;
 
     const { asyncOptions, loading } = this.state;
@@ -82,20 +83,10 @@ export class Options extends React.Component {
           />
         </div>
 
-        { loading &&
-          <div className={classSelectors.loader}>
-            <div className="spinner"></div>
-            <div>Some options are still loading, please wait...</div>
-          </div>
-        }
-
-        {
-          (!loading && opts.length == 0) ? (
-            <div className={classSelectors.message}>
-              <div>There are no options</div>
-            </div>
-          ) : ""
-        }
+        <NotificatorComponent
+          loading={loading}
+          options={opts}
+        ></NotificatorComponent>
 
         <div className={classSelectors.options}>
           {
