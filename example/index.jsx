@@ -55,7 +55,8 @@ const initialSettings = {
   validator: null,
   keepOptionsOpenAfterSelect: false,
   OptionComponent: null,
-  cacheAsyncOptions: false,
+  cacheAsyncOptions: true,
+  preloadAsyncOptions: true,
 };
 
 function Example() {
@@ -191,6 +192,19 @@ function Example() {
               onChange={(e) => setSettings({ ...settings, cacheAsyncOptions: e.target.checked })}
             />
             <label className="form-check-label" htmlFor="cacheAsyncOptions">Cache async options</label>
+          </div>
+        </div>
+
+        <div className="col-12 mb-3">
+          <div className="form-check">
+            <input
+              id="preloadAsyncOptions"
+              className="form-check-input"
+              type="checkbox"
+              checked={!!settings.preloadAsyncOptions}
+              onChange={(e) => setSettings({ ...settings, preloadAsyncOptions: e.target.checked })}
+            />
+            <label className="form-check-label" htmlFor="preloadAsyncOptions">Preload async options</label>
           </div>
         </div>
 
