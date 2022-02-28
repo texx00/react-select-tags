@@ -50,8 +50,21 @@ export default class ReactSelectTags extends React.Component {
   }
 
   componentDidMount() {
+    let { preloadAsyncOptions } = this.props;
+
+    // If "true", open and close the options. That will trigger the
+    // loadAsyncOptions() (this doesn't make any sense without the
+    // cacheAsyncOptions option)
+    preloadAsyncOptions = !!(preloadAsyncOptions ?? true); // force boolean, default to true
+
     document.addEventListener('mousedown', this.handleClickOutside, true);
     this.__updateOverflowedTagsCounter();
+
+    if(preloadAsyncOptions) {
+      this.setState({ showOptions: true }, () => {
+        this.setState({ showOptions: false });
+      });
+    }
   }
 
   componentWillUnmount() {
