@@ -95,10 +95,11 @@ const initialSettings = {
   removeOnBackspace: true,
   validator: null,
   keepOptionsOpenAfterSelect: false,
-  OptionComponent: null,
-  NotificatorComponent: null,
   cacheAsyncOptions: true,
   preloadAsyncOptions: true,
+
+  OptionComponent: null,
+  NotificatorComponent: null,
 };
 
 function Example() {

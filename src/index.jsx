@@ -1,10 +1,12 @@
 import React from "react";
+
 import { Tag } from "./components/Tag";
 import { Option } from "./components/Option";
 import { Options } from "./components/Options";
+import { Notificator } from "./components/Notificator";
+
 import { classSelectors } from "./utils/selectors";
 import { filter, validator } from "./utils/functions";
-import { Notificator } from "./components/Notificator";
 
 export default class ReactSelectTags extends React.Component {
   constructor(props) {
@@ -268,11 +270,12 @@ export default class ReactSelectTags extends React.Component {
       editable,
       maxTags,
       placeholder,
-      NotificatorComponent,
-      OptionComponent,
       removeOnBackspace,
       cacheAsyncOptions,
       keepOptionsOpenAfterSelect,
+
+      OptionComponent,
+      NotificatorComponent,
     } = this.props;
 
     // If false, tags can't be added / removed
@@ -373,8 +376,6 @@ export default class ReactSelectTags extends React.Component {
               tags={tags}
               cacheAsyncOptions={cacheAsyncOptions}
               asyncOptionsCacheStore={this.asyncOptionsCacheStore}
-              NotificatorComponent={NotificatorComponent}
-              OptionComponent={OptionComponent}
               options={options}
               filter={this.props.filter ?? filter}
               select={(value) => {
@@ -384,6 +385,9 @@ export default class ReactSelectTags extends React.Component {
                   this.closeOptions();
                 }
               }}
+
+              OptionComponent={OptionComponent}
+              NotificatorComponent={NotificatorComponent}
             ></Options>
           }
 
