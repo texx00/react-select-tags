@@ -44,7 +44,7 @@ export class Options extends React.Component {
 
       // We use "eq" because we don't want to update the options (causing a DOM
       // reflow) if there are no new options to be rendered
-      if(eq && this._isMounted) {
+      if(!eq && this._isMounted) {
         this.setState({
           asyncOptions: data,
           loading: false,
