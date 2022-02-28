@@ -14,8 +14,10 @@ export class Tag extends React.Component {
   }
 
   onBlur() {
-    const { validator, update, remove, index } = this.props;
+    const { tag, validator, update, remove, index } = this.props;
     const { input } = this.state;
+
+    if(input == tag.value) return;
 
     if(input) {
       if(validator(input)) {
