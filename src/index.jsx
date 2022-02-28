@@ -106,7 +106,7 @@ export default class ReactSelectTags extends React.Component {
   }
 
   onInputChange(e) {
-    const { readOnly, editable } = this.props;
+    let { readOnly, editable } = this.props;
 
     // If false, tags can't be added / removed
     readOnly = !!readOnly; // force boolean
