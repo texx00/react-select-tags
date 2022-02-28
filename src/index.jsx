@@ -307,8 +307,6 @@ export default class ReactSelectTags extends React.Component {
 
     placeholder = placeholder ?? "Type and press enter";
 
-    console.log("PROPS", this.props);
-
     // Customizable components
     OptionComponent = OptionComponent ? OptionComponent : Option;
     NotificatorComponent = NotificatorComponent ? NotificatorComponent : Notificator;
