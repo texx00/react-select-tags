@@ -4,9 +4,50 @@ import ReactSelectTags from "../src/index";
 
 const root = document.getElementById("root");
 
+const NotificatorComponent = (props) => {
+  const { loading, options } = props;
+
+  if(loading) {
+    return (
+      <div style={{
+        padding: "0.5rem 1.5rem",
+        animation: "rainbow 2s linear infinite",
+        backgroundImage: `linear-gradient(
+          90deg,
+          rgba(255, 0, 0, 1) 0%,
+          rgba(255, 154, 0, 1) 10%,
+          rgba(208, 222, 33, 1) 20%,
+          rgba(79, 220, 74, 1) 30%,
+          rgba(63, 218, 216, 1) 40%,
+          rgba(47, 201, 226, 1) 50%,
+          rgba(28, 127, 238, 1) 60%,
+          rgba(95, 21, 242, 1) 70%,
+          rgba(186, 12, 248, 1) 80%,
+          rgba(251, 7, 217, 1) 90%,
+          rgba(255, 0, 0, 1) 100%
+        )`,
+        backgroundSize: "200% 200%",
+      }}>
+        More colors are being loaded, hold on...
+      </div>
+    );
+  }
+
+  if(!loading && options.length == 0) {
+    return (
+      <div style={{
+        padding: "0.5rem 1.5rem",
+      }}>No colors were found</div>
+    )
+  }
+
+  return "";
+}
+
 const OptionComponent = (props) => {
   return (
     <div style={{
+      padding: "0.5rem 1.5rem",
       backgroundColor: props.option.value,
     }}>
       <span style={{
@@ -55,6 +96,7 @@ const initialSettings = {
   validator: null,
   keepOptionsOpenAfterSelect: false,
   OptionComponent: null,
+  NotificatorComponent: null,
   cacheAsyncOptions: true,
   preloadAsyncOptions: true,
 };
@@ -179,6 +221,19 @@ function Example() {
               onChange={(e) => setSettings({ ...settings, OptionComponent: e.target.checked ? OptionComponent : null })}
             />
             <label className="form-check-label" htmlFor="OptionComponent">Custom "Option" component</label>
+          </div>
+        </div>
+
+        <div className="col-12 mb-3">
+          <div className="form-check">
+            <input
+              id="NotificatorComponent"
+              className="form-check-input"
+              type="checkbox"
+              checked={!!settings.NotificatorComponent}
+              onChange={(e) => setSettings({ ...settings, NotificatorComponent: e.target.checked ? NotificatorComponent : null })}
+            />
+            <label className="form-check-label" htmlFor="NotificatorComponent">Custom "Notificator" component</label>
           </div>
         </div>
 
