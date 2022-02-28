@@ -37,13 +37,11 @@ const initialSettings = {
     (searchPattern) => {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
-          if(!searchPattern) {
-            resolve([]);
-          } else {
-            resolve([
-              {label: searchPattern, value: searchPattern},
-            ]);
-          }
+
+          resolve([
+            {label: "White", value: "white"},
+            {label: "Black", value: "black"},
+          ]);
         }, 3000);
       });
     }
@@ -57,6 +55,7 @@ const initialSettings = {
   validator: null,
   keepOptionsOpenAfterSelect: false,
   OptionComponent: null,
+  cacheAsyncOptions: false,
 };
 
 function Example() {
@@ -179,6 +178,19 @@ function Example() {
               onChange={(e) => setSettings({ ...settings, OptionComponent: e.target.checked ? OptionComponent : null })}
             />
             <label className="form-check-label" htmlFor="OptionComponent">Custom "Option" component</label>
+          </div>
+        </div>
+
+        <div className="col-12 mb-3">
+          <div className="form-check">
+            <input
+              id="cacheAsyncOptions"
+              className="form-check-input"
+              type="checkbox"
+              checked={!!settings.cacheAsyncOptions}
+              onChange={(e) => setSettings({ ...settings, cacheAsyncOptions: e.target.checked })}
+            />
+            <label className="form-check-label" htmlFor="cacheAsyncOptions">Cache async options</label>
           </div>
         </div>
 
