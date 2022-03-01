@@ -43,6 +43,9 @@ export class Options extends React.Component {
 
       this._isMounted && this.setState({
         asyncOptions: data,
+      });
+    }).catch(() => {}).finally(() => {
+      this._isMounted && this.setState({
         loading: false,
       });
     });
