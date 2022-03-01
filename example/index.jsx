@@ -120,6 +120,7 @@ function Example() {
             {...settings}
             values={values}
             onChange={(value) => setValues(value)}
+            className="my-custom-class"
           />
         </div>
       </div>
