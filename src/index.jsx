@@ -269,6 +269,7 @@ export default class ReactSelectTags extends React.Component {
       readOnly,
       editable,
       maxTags,
+      className,
       placeholder,
       removeOnBackspace,
       cacheAsyncOptions,
@@ -318,6 +319,7 @@ export default class ReactSelectTags extends React.Component {
           ${classSelectors.component}
           ${showOverflowedTags ? "showOverflowedTags" : ""}
           ${focused ? "focused" : ""}
+          ${className}
         `}
       >
 
