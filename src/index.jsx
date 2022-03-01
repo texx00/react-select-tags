@@ -198,14 +198,31 @@ export default class ReactSelectTags extends React.Component {
   }
 
   addTag(value) {
+    const tags = this.getTags();
+
+    let {
+      maxTags,
+      swapLastValue,
+    } = this.props;
+
+    maxTags = Number(maxTags) || 0;
+    const maxTagsReached = maxTags !== 0 ? tags.length >= maxTags : false;
+
+    swapLastValue = !!swapLastValue; // force boolean
+
     const values = [ ...this.props.values ];
 
     if(!values.includes(value)) {
+      if(maxTagsReached && swapLastValue) {
+        values.pop();
+      }
+
       values.push(value);
       this.props.onChange(values);
 
       this.setState({ input: "" });
     } else {
+      // We're trying to add a value that was already been added
       // notify error?
     }
   }
@@ -271,6 +288,7 @@ export default class ReactSelectTags extends React.Component {
       maxTags,
       className,
       placeholder,
+      swapLastValue,
       removeOnBackspace,
       cacheAsyncOptions,
       keepOptionsOpenAfterSelect,
@@ -300,11 +318,19 @@ export default class ReactSelectTags extends React.Component {
     maxTags = Number(maxTags) || 0;
     const maxTagsReached = maxTags !== 0 ? tags.length >= maxTags : false;
 
-    const showInput = !readOnly && !maxTagsReached;
+    swapLastValue = !!swapLastValue; // force boolean
 
-    // We must show the options list only the current value of "showOptions" is
-    // "true" and the "maxTagsReached" is "false"
-    const showOptionsList = showOptions && !maxTagsReached;
+    // We must show the input only if the component is not in readOnly mode and
+    // either
+    // a) we haven't reached the maximum selected tags
+    // b) "swapLastValue" is "true"
+    const showInput = !readOnly && (!maxTagsReached || swapLastValue);
+
+    // We must show the options list only if the current value of "showOptions"
+    // is "true" and either
+    // a) we haven't reached the maximum selected tags
+    // b) "swapLastValue" is "true"
+    const showOptionsList = showOptions && (!maxTagsReached || swapLastValue);
 
     placeholder = placeholder ?? "Type and press enter";
 
