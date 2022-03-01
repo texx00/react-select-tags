@@ -89,6 +89,7 @@ const initialSettings = {
   ],
   onChange: (tags) => {},
   placeholder: "Type and press enter",
+  minTags: 1,
   maxTags: 2,
   editable: true,
   readOnly: false,
@@ -135,6 +136,17 @@ function Example() {
             type="text"
             value={settings.placeholder}
             onChange={(e) => setSettings({ ...settings, placeholder: e.target.value })}
+          />
+        </div>
+
+        <div className="col-12 mb-3">
+          <label htmlFor="minTags" className="form-label">Min tags</label>
+          <input
+            id="minTags"
+            className="form-control"
+            type="number"
+            value={settings.minTags}
+            onChange={(e) => setSettings({ ...settings, minTags: parseInt(e.target.value, 10) })}
           />
         </div>
 
