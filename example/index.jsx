@@ -90,7 +90,7 @@ const initialSettings = {
   onChange: (tags) => {},
   placeholder: "Type and press enter",
   minTags: 1,
-  maxTags: 2,
+  maxTags: 10,
   editable: true,
   readOnly: false,
   removeOnBackspace: true,
