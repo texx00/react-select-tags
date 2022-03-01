@@ -89,7 +89,7 @@ const initialSettings = {
   ],
   onChange: (tags) => {},
   placeholder: "Type and press enter",
-  maxTags: 10,
+  maxTags: 2,
   editable: true,
   readOnly: false,
   removeOnBackspace: true,
@@ -97,6 +97,7 @@ const initialSettings = {
   keepOptionsOpenAfterSelect: false,
   cacheAsyncOptions: true,
   preloadAsyncOptions: true,
+  swapLastValue: false,
 
   OptionComponent: null,
   NotificatorComponent: null,
@@ -262,6 +263,19 @@ function Example() {
               onChange={(e) => setSettings({ ...settings, preloadAsyncOptions: e.target.checked })}
             />
             <label className="form-check-label" htmlFor="preloadAsyncOptions">Preload async options</label>
+          </div>
+        </div>
+
+        <div className="col-12 mb-3">
+          <div className="form-check">
+            <input
+              id="swapLastValue"
+              className="form-check-input"
+              type="checkbox"
+              checked={!!settings.swapLastValue}
+              onChange={(e) => setSettings({ ...settings, swapLastValue: e.target.checked })}
+            />
+            <label className="form-check-label" htmlFor="swapLastValue">On selection, if max tags limit is reached, swap the last selected value (instead of disabling the input)</label>
           </div>
         </div>
 
