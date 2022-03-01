@@ -5,7 +5,7 @@
     align-items: center;
     background: $rs3TagBgColor;
     border-radius: $rs3TagBorderRadius;
-    max-width: calc(100% - 3px);
+    max-width: 100%;
 
     &.locked {
       cursor: default;
