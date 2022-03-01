@@ -285,6 +285,7 @@ export default class ReactSelectTags extends React.Component {
       options,
       readOnly,
       editable,
+      minTags,
       maxTags,
       className,
       placeholder,
@@ -314,8 +315,14 @@ export default class ReactSelectTags extends React.Component {
     // next mount.
     cacheAsyncOptions = !!(cacheAsyncOptions ?? true); // force boolean, default to true
 
+    minTags = Number(minTags) || 0; // force integer
+
     // Check if we reached the max tags added
-    maxTags = Number(maxTags) || 0;
+    const minTagsReached = minTags !== 0 ? tags.length == minTags : false;
+
+    maxTags = Number(maxTags) || 0; // force integer
+
+    // Check if we reached the max tags added
     const maxTagsReached = maxTags !== 0 ? tags.length >= maxTags : false;
 
     swapLastValue = !!swapLastValue; // force boolean
@@ -365,7 +372,7 @@ export default class ReactSelectTags extends React.Component {
                   tag={tag}
                   index={index}
                   editable={isEditable}
-                  readOnly={readOnly}
+                  readOnly={readOnly || minTagsReached}
                   inputRef={this.inputRef}
                   update={(index, value) => this.updateTag(index, value)}
                   remove={index => this.removeTag(index)}
