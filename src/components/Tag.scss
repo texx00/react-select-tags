@@ -1,0 +1,129 @@
+.react-select-tags {
+  .tag {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: $rs3TagBgColor;
+    border-radius: $rs3TagBorderRadius;
+    max-width: calc(100% - 3px);
+
+    &.locked {
+      cursor: default;
+      user-select: none;
+    }
+
+    &:not(.locked) {
+      .tagWrapper {
+        .content {
+          background-color: white;
+        }
+      }
+    }
+
+    &.readonly {
+      .tagWrapper {
+        .contentWrapper {
+          max-width: 100%;
+        }
+      }
+    }
+
+    &:not(.readonly) {
+      .tagWrapper {
+        .contentWrapper {
+          max-width: calc(100% - $rs3TagRemoveWidth);
+
+          input,
+          .content {
+            border-right: none !important;
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+          }
+        }
+      }
+    }
+
+    &.invalid {
+      .tagWrapper {
+        .content {
+          border: 1px solid $rs3Invalid !important;
+        }
+      }
+    }
+
+    .tagWrapper {
+      display: flex;
+      flex-direction: row;
+      max-width: 100%;
+
+      .contentWrapper {
+        position: relative;
+
+        .content, input {
+          font-size: $rs3TagFontSize;
+          line-height: 1;
+          border: 1px solid $rs3TagBgColor;
+          border-radius: $rs3TagBorderRadius;
+          padding: 4px 10px 4px 10px;
+        }
+
+        .content {
+          color: $rs3TagColor;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+
+        input {
+          color: $rs3InputsTextColor;
+          position: absolute;
+          left: 0;
+          top: 0;
+          outline: 0;
+          height: 100%;
+          font-family: inherit;
+          width: 100%;
+        }
+      }
+
+      .remove {
+        position: relative;
+        width: $rs3TagRemoveWidth;
+
+        cursor: pointer;
+        font-size: $rs3TagFontSize - 0.15;
+        background: $rs3TagRemoveBgColor;
+        border: 1px solid $rs3TagBgColor;
+        border-top-right-radius: $rs3TagBorderRadius;
+        border-bottom-right-radius: $rs3TagBorderRadius;
+
+        &:before, &:after {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          content: ' ';
+          width: 2px;
+          height: $rs3TagFontSize;
+          background-color: $rs3TagBgColor;
+        }
+
+        &:before {
+          transform: translateX(-50%) translateY(-50%) rotate(45deg);
+        }
+
+        &:after {
+          transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+        }
+
+        &:hover {
+          background: darken($rs3TagBgColor, 10%);
+          border: 1px solid darken($rs3TagBgColor, 10%);
+
+          &:before, &:after {
+            background-color: $rs3TagRemoveBgColor;
+          }
+        }
+      }
+    }
+  }
+}

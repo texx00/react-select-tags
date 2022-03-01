@@ -115,7 +115,6 @@ export class Tag extends React.Component {
               isEditable && (
                 <input
                   ref={this.inputRef}
-                  className={classSelectors.tagContent}
                   value={this.state.input}
                   onBlur={() => this.onBlur() }
                   onKeyDown={(e) => this.onKeyDown(e)}
