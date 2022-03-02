@@ -63,7 +63,7 @@ export class Options extends React.Component {
 
     let opts = options.filter(opt => typeof opt != "function").concat(asyncOptions);
 
-    // Filter the options by the searchPatter (if any)
+    // Filter the options by the searchPattern (if any)
     if(this.state.filter) {
       opts = this.props.filter(opts, this.state.filter);
     }
