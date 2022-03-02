@@ -93,10 +93,10 @@ export class Options extends React.Component {
 
         <div className={classSelectors.options}>
           {
-            opts.map(option => {
+            opts.map((option, idx) => {
               return (
                 <div
-                  key={option.value}
+                  key={`${idx}-${option.value}`}
                   onClick={() => this.props.select(option.value)}
                 >
                   <OptionComponent option={option}></OptionComponent>
