@@ -187,6 +187,29 @@ export default class ReactSelectTags extends React.Component {
     this.setState({ showOptions: false });
   }
 
+  isMinTagsReached() {
+    const tags = this.getTags();
+    let { minTags } = this.props;
+
+    minTags = Number(minTags) || 0; // force integer
+
+    // Check if we're over the minimum selected tags
+    return minTags !== 0 ? tags.length == minTags : false;
+  }
+
+  isMaxTagsReached() {
+    const tags = this.getTags();
+
+    let {
+      maxTags,
+    } = this.props;
+
+    maxTags = Number(maxTags) || 0;
+
+    // Check if we've reached the maximum selected tags
+    return maxTags !== 0 ? tags.length >= maxTags : false;
+  }
+
   validateTag(value) {
     // If input is blank, do nothing
     if (value === "") {
@@ -198,22 +221,14 @@ export default class ReactSelectTags extends React.Component {
   }
 
   addTag(value) {
-    const tags = this.getTags();
-
-    let {
-      maxTags,
-      swapLastValue,
-    } = this.props;
-
-    maxTags = Number(maxTags) || 0;
-    const maxTagsReached = maxTags !== 0 ? tags.length >= maxTags : false;
+    let { swapLastValue } = this.props;
 
     swapLastValue = !!swapLastValue; // force boolean
 
     const values = [ ...this.props.values ];
 
     if(!values.includes(value)) {
-      if(maxTagsReached && swapLastValue) {
+      if(this.isMaxTagsReached() && swapLastValue) {
         values.pop();
       }
 
@@ -228,6 +243,12 @@ export default class ReactSelectTags extends React.Component {
   }
 
   removeTag(i) {
+    // We have reached the minimum number of selected options, we shouldn't
+    // let the user delete
+    if(this.isMinTagsReached()) {
+      return;
+    }
+
     const values = [ ...this.props.values ];
     values.splice(i, 1);
     this.props.onChange(values);
@@ -285,7 +306,6 @@ export default class ReactSelectTags extends React.Component {
       options,
       readOnly,
       editable,
-      minTags,
       maxTags,
       className,
       placeholder,
@@ -315,15 +335,7 @@ export default class ReactSelectTags extends React.Component {
     // next mount.
     cacheAsyncOptions = !!(cacheAsyncOptions ?? true); // force boolean, default to true
 
-    minTags = Number(minTags) || 0; // force integer
-
-    // Check if we reached the max tags added
-    const minTagsReached = minTags !== 0 ? tags.length == minTags : false;
-
     maxTags = Number(maxTags) || 0; // force integer
-
-    // Check if we reached the max tags added
-    const maxTagsReached = maxTags !== 0 ? tags.length >= maxTags : false;
 
     swapLastValue = !!swapLastValue; // force boolean
 
@@ -331,13 +343,13 @@ export default class ReactSelectTags extends React.Component {
     // either
     // a) we haven't reached the maximum selected tags
     // b) "swapLastValue" is "true"
-    const showInput = !readOnly && (!maxTagsReached || swapLastValue);
+    const showInput = !readOnly && (!this.isMaxTagsReached() || swapLastValue);
 
     // We must show the options list only if the current value of "showOptions"
     // is "true" and either
     // a) we haven't reached the maximum selected tags
     // b) "swapLastValue" is "true"
-    const showOptionsList = showOptions && (!maxTagsReached || swapLastValue);
+    const showOptionsList = showOptions && (!this.isMaxTagsReached() || swapLastValue);
 
     placeholder = placeholder ?? "Type and press enter";
 
@@ -372,7 +384,7 @@ export default class ReactSelectTags extends React.Component {
                   tag={tag}
                   index={index}
                   editable={isEditable}
-                  readOnly={readOnly || minTagsReached}
+                  readOnly={readOnly || this.isMinTagsReached()}
                   inputRef={this.inputRef}
                   update={(index, value) => this.updateTag(index, value)}
                   remove={index => this.removeTag(index)}
