@@ -1,7 +1,10 @@
 @import "./vars";
 
 @import "./components/Tag";
+@import "./components/Group";
+@import "./components/Option";
 @import "./components/Options";
+@import "./components/Notificator";
 
 .react-select-tags {
   box-sizing: border-box;

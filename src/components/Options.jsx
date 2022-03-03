@@ -30,6 +30,16 @@ export class Options extends React.Component {
     this._isMounted = false;
  }
 
+  getGroupedOptions(options) {
+    const groups = new Set(options.map(opt => opt.group));
+
+    const opts = new Map();
+    groups.forEach(group => {
+      opts.set(group, options.filter(opt => opt.group == group));
+    });
+    return opts;
+  }
+
   loadAsyncOptions(searchPattern) {
     const { asyncFns } = this.state;
     const { asyncOptionsCacheStore } = this.props;
@@ -55,6 +65,7 @@ export class Options extends React.Component {
     const {
       tags,
       options,
+      GroupComponent,
       OptionComponent,
       NotificatorComponent,
     } = this.props;
@@ -71,6 +82,9 @@ export class Options extends React.Component {
     // Remove the options that are already selected
     const selectedValues = tags.map(tag => tag.value);
     opts = opts.filter(opt => !selectedValues.includes(opt.value));
+
+    // Extract groups (if any)
+    opts = this.getGroupedOptions(opts);
 
     return (
       <div className={classSelectors.optionsWrapper}>
@@ -93,15 +107,28 @@ export class Options extends React.Component {
 
         <div className={classSelectors.options}>
           {
-            opts.map((option, idx) => {
+            Array.from(opts).map(([group, options], idx) => {
+
               return (
-                <div
-                  key={`${idx}-${option.value}`}
-                  onClick={() => this.props.select(option.value)}
-                >
-                  <OptionComponent option={option}></OptionComponent>
+                <div key={`${idx}-group`}>
+                  <GroupComponent group={group}></GroupComponent>
+
+                  {
+                    options.map((option, idx2) => {
+                      return (
+                        <div
+                          key={`${idx2}-${option.value}`}
+                          onClick={() => this.props.select(option.value)}
+                        >
+                          <OptionComponent option={option}></OptionComponent>
+                        </div>
+                      )
+                    })
+                  }
+
                 </div>
-              )
+              );
+
             })
           }
         </div>

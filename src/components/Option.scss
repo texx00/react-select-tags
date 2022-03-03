@@ -1,0 +1,17 @@
+.react-select-tags {
+  .option {
+    display: block;
+    width: 100%;
+    padding: 4px 36px;
+    font-weight: 400;
+    color: $rs3InputsTextColor;
+    font-size: 16px;
+    line-height: 1.5;
+
+    &:hover {
+      color: #16181b;
+      text-decoration: none;
+      background-color: #f8f9fa;
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Tag } from "./components/Tag";
+import { Group } from "./components/Group";
 import { Option } from "./components/Option";
 import { Options } from "./components/Options";
 import { Notificator } from "./components/Notificator";
@@ -314,6 +315,7 @@ export default class ReactSelectTags extends React.Component {
       cacheAsyncOptions,
       keepOptionsOpenAfterSelect,
 
+      GroupComponent,
       OptionComponent,
       NotificatorComponent,
     } = this.props;
@@ -354,6 +356,7 @@ export default class ReactSelectTags extends React.Component {
     placeholder = placeholder ?? "Type and press enter";
 
     // Customizable components
+    GroupComponent = GroupComponent ? GroupComponent : Group;
     OptionComponent = OptionComponent ? OptionComponent : Option;
     NotificatorComponent = NotificatorComponent ? NotificatorComponent : Notificator;
 
@@ -433,6 +436,7 @@ export default class ReactSelectTags extends React.Component {
                 }
               }}
 
+              GroupComponent={GroupComponent}
               OptionComponent={OptionComponent}
               NotificatorComponent={NotificatorComponent}
             ></Options>

@@ -19,6 +19,7 @@ export const classSelectors = {
   spinner: "spinner",
 
   message: "message",
+  group: "group",
   option: "option",
 
   tag: "tag",
