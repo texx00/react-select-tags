@@ -374,8 +374,14 @@ export default class ReactSelectTags extends React.Component {
       }
 
       // ... we must also check if "dontShowOptionsListIfEmpty" is "true" and
-      // if the options list is empty
-      if(dontShowOptionsListIfEmpty && options.length == 0) {
+      // if the options list is empty (and if it can't change because the user
+      // has passed a function)
+      if(
+        dontShowOptionsListIfEmpty && (
+          options.filter(opt => typeof opt == "function").length == 0 &&
+          options.length == 0
+        )
+      ) {
         // ... in which case we shouldn't show the options list
         showOptionsList = false;
       }
