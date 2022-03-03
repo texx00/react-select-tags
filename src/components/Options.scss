@@ -1,9 +1,9 @@
 .react-select-tags {
   .optionsWrapper {
     position: absolute;
-    background: $background;
-    border: 1px solid $rstBorderColor;
-    border-radius: $rstTagBorderRadius;
+    background: $rstOptionsBackground;
+    border: 1px solid $rstOptionsBorderColor;
+    border-radius: $rstOptionsBorderRadius;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -19,10 +19,10 @@
 
       input {
         border: none;
-        border-bottom: 1px solid $rstBorderColor;
+        border-bottom: 1px solid $rstFilterBorderBottom;
         width: 100%;
 
-        font-size: $rstTagFontSize;
+        font-size: $rstFilterFontSize;
         line-height: 1;
 
         outline: 0;
@@ -35,7 +35,7 @@
       display: flex;
       align-items: center;
       margin: 8px 24px 8px 24px;
-      color: lighten($rstInputsTextColor, 40%);
+      color: $rstMessageColor;
       user-select: none;
       cursor: default;
     }

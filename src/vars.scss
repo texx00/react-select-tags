@@ -1,14 +1,39 @@
+// General
 $background: white;
 $rstHeight: 38px;
 $rstInvalid: #dc3545;
 $rstBorderColor: #ced4da;
 
-$rstGroupColor: #212529;
+// Main input
+$rstMainInputColor: #212529;
 
+// Tags
 $rstTagColor: white;
 $rstTagBgColor: #0d6efd;
 $rstTagRemoveBgColor: white;
-$rstTagRemoveWidth: 26px;
-$rstInputsTextColor: #212529;
+$rstTagRemoveButtonWidth: 26px;
+$rstTagInputTextColor: #212529;
 $rstTagFontSize: 16px;
 $rstTagBorderRadius: 4px;
+
+// Options
+$rstOptionsBackground: white;
+$rstOptionsBorderColor: #ced4da;
+$rstOptionsBorderRadius: 4px;
+
+// Filter
+$rstFilterBorderBottom: 1px solid #ced4da;
+$rstFilterFontSize: 16px;
+
+// Spinner
+$rstLoaderColor: #212529;
+$rstSpinnerColor: #0d6efd;
+
+//Message
+$rstMessageColor: lighten(#212529, 40%);
+
+// Group
+$rstGroupColor: #212529;
+
+// Option
+$rstOptionColor: #212529;
