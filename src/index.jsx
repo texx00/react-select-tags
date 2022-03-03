@@ -140,7 +140,11 @@ export default class ReactSelectTags extends React.Component {
 
   onInputKeyDown(e) {
     const { input, showOptions } = this.state;
-    const { values, removeOnBackspace } = this.props;
+    let {
+      values,
+      removeOnBackspace,
+      keepOptionsOpenAfterSelect
+    } = this.props;
 
     // On enter
     if(e.keyCode === 13) {
@@ -151,6 +155,13 @@ export default class ReactSelectTags extends React.Component {
       if(this.validateTag(input)) {
         this.setState({ invalid: false });
         this.addTag(input);
+
+        // Keep the options list open after selection
+        keepOptionsOpenAfterSelect = !!keepOptionsOpenAfterSelect; // force boolean
+
+        if(!keepOptionsOpenAfterSelect) {
+          this.closeOptions();
+        }
       } else {
         this.setState({ invalid: true });
       }
