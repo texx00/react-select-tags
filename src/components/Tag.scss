@@ -3,8 +3,8 @@
     position: relative;
     display: flex;
     align-items: center;
-    background: $rs3TagBgColor;
-    border-radius: $rs3TagBorderRadius;
+    background: $rstTagBgColor;
+    border-radius: $rstTagBorderRadius;
     max-width: 100%;
 
     &.locked {
@@ -31,7 +31,7 @@
     &:not(.readonly) {
       .tagWrapper {
         .contentWrapper {
-          max-width: calc(100% - $rs3TagRemoveWidth);
+          max-width: calc(100% - $rstTagRemoveWidth);
 
           input,
           .content {
@@ -46,7 +46,7 @@
     &.invalid {
       .tagWrapper {
         .content {
-          border: 1px solid $rs3Invalid !important;
+          border: 1px solid $rstInvalid !important;
         }
       }
     }
@@ -60,22 +60,22 @@
         position: relative;
 
         .content, input {
-          font-size: $rs3TagFontSize;
+          font-size: $rstTagFontSize;
           line-height: 1;
-          border: 1px solid $rs3TagBgColor;
-          border-radius: $rs3TagBorderRadius;
+          border: 1px solid $rstTagBgColor;
+          border-radius: $rstTagBorderRadius;
           padding: 4px 10px 4px 10px;
         }
 
         .content {
-          color: $rs3TagColor;
+          color: $rstTagColor;
           white-space: nowrap;
           text-overflow: ellipsis;
           overflow: hidden;
         }
 
         input {
-          color: $rs3InputsTextColor;
+          color: $rstInputsTextColor;
           position: absolute;
           left: 0;
           top: 0;
@@ -88,14 +88,14 @@
 
       .remove {
         position: relative;
-        width: $rs3TagRemoveWidth;
+        width: $rstTagRemoveWidth;
 
         cursor: pointer;
-        font-size: $rs3TagFontSize - 0.15;
-        background: $rs3TagRemoveBgColor;
-        border: 1px solid $rs3TagBgColor;
-        border-top-right-radius: $rs3TagBorderRadius;
-        border-bottom-right-radius: $rs3TagBorderRadius;
+        font-size: $rstTagFontSize - 0.15;
+        background: $rstTagRemoveBgColor;
+        border: 1px solid $rstTagBgColor;
+        border-top-right-radius: $rstTagBorderRadius;
+        border-bottom-right-radius: $rstTagBorderRadius;
 
         &:before, &:after {
           position: absolute;
@@ -103,8 +103,8 @@
           left: 50%;
           content: ' ';
           width: 2px;
-          height: $rs3TagFontSize;
-          background-color: $rs3TagBgColor;
+          height: $rstTagFontSize;
+          background-color: $rstTagBgColor;
         }
 
         &:before {
@@ -116,11 +116,11 @@
         }
 
         &:hover {
-          background: darken($rs3TagBgColor, 10%);
-          border: 1px solid darken($rs3TagBgColor, 10%);
+          background: darken($rstTagBgColor, 10%);
+          border: 1px solid darken($rstTagBgColor, 10%);
 
           &:before, &:after {
-            background-color: $rs3TagRemoveBgColor;
+            background-color: $rstTagRemoveBgColor;
           }
         }
       }

@@ -3,7 +3,7 @@
     display: flex;
     align-items: center;
     margin: 8px 24px 8px 24px;
-    color: lighten($rs3InputsTextColor, 40%);
+    color: lighten($rstInputsTextColor, 40%);
     user-select: none;
     cursor: default;
 
@@ -18,7 +18,7 @@
       border-top: 4px solid rgba(13, 110, 253, 0.2);
       border-right: 4px solid rgba(13, 110, 253, 0.2);
       border-bottom: 4px solid rgba(13, 110, 253, 0.2);
-      border-left: 4px solid $rs3TagBgColor;
+      border-left: 4px solid $rstTagBgColor;
       -webkit-transform: translateZ(0);
       -ms-transform: translateZ(0);
       transform: translateZ(0);

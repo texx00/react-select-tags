@@ -2,8 +2,8 @@
   .optionsWrapper {
     position: absolute;
     background: $background;
-    border: 1px solid $rs3BorderColor;
-    border-radius: $rs3TagBorderRadius;
+    border: 1px solid $rstBorderColor;
+    border-radius: $rstTagBorderRadius;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -19,10 +19,10 @@
 
       input {
         border: none;
-        border-bottom: 1px solid $rs3BorderColor;
+        border-bottom: 1px solid $rstBorderColor;
         width: 100%;
 
-        font-size: $rs3TagFontSize;
+        font-size: $rstTagFontSize;
         line-height: 1;
 
         outline: 0;
@@ -35,7 +35,7 @@
       display: flex;
       align-items: center;
       margin: 8px 24px 8px 24px;
-      color: lighten($rs3InputsTextColor, 40%);
+      color: lighten($rstInputsTextColor, 40%);
       user-select: none;
       cursor: default;
     }
