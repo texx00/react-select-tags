@@ -356,6 +356,13 @@ export default class ReactSelectTags extends React.Component {
 
     swapLastValue = !!swapLastValue; // force boolean
 
+    placeholder = placeholder ?? "Type and press enter";
+
+    // Customizable components
+    GroupComponent = GroupComponent ? GroupComponent : Group;
+    OptionComponent = OptionComponent ? OptionComponent : Option;
+    NotificatorComponent = NotificatorComponent ? NotificatorComponent : Notificator;
+
     // We must show the input only if the component is not in readOnly mode and
     // either
     // a) we haven't reached the maximum selected tags
@@ -374,25 +381,23 @@ export default class ReactSelectTags extends React.Component {
       }
 
       // ... we must also check if "dontShowOptionsListIfEmpty" is "true" and
-      // if the options list is empty (and if it can't change because the user
-      // has passed a function)
+      // if the options list is empty*
+      // *empty - We consider the list empty when:
+      //   a) there are no function-options
+      //   b) excluding the already-selected options, the length of the options
+      //      is 0
+      const selectedValues = tags.map(tag => tag.value);
+      const _options = options.filter(opt => !selectedValues.includes(opt.value));
       if(
         dontShowOptionsListIfEmpty && (
-          options.filter(opt => typeof opt == "function").length == 0 &&
-          options.length == 0
+          _options.length == 0 &&
+          options.filter(opt => typeof opt == "function").length == 0
         )
       ) {
         // ... in which case we shouldn't show the options list
         showOptionsList = false;
       }
     }
-
-    placeholder = placeholder ?? "Type and press enter";
-
-    // Customizable components
-    GroupComponent = GroupComponent ? GroupComponent : Group;
-    OptionComponent = OptionComponent ? OptionComponent : Option;
-    NotificatorComponent = NotificatorComponent ? NotificatorComponent : Notificator;
 
     return (
       <div
