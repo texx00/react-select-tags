@@ -324,6 +324,7 @@ export default class ReactSelectTags extends React.Component {
       swapLastValue,
       removeOnBackspace,
       cacheAsyncOptions,
+      dontShowOptionsListIfEmpty,
       keepOptionsOpenAfterSelect,
 
       GroupComponent,
@@ -339,6 +340,9 @@ export default class ReactSelectTags extends React.Component {
 
     // Remove tags on backspace / delete (if the content is empty)
     removeOnBackspace = !!removeOnBackspace; // force boolean
+
+    // Don't show the options list if there are no options
+    dontShowOptionsListIfEmpty = !!(dontShowOptionsListIfEmpty ?? true); // foce boolean, default to true
 
     // Keep the options list open after selection
     keepOptionsOpenAfterSelect = !!keepOptionsOpenAfterSelect; // force boolean
@@ -359,10 +363,23 @@ export default class ReactSelectTags extends React.Component {
     const showInput = !readOnly && (!this.isMaxTagsReached() || swapLastValue);
 
     // We must show the options list only if the current value of "showOptions"
-    // is "true" and either
-    // a) we haven't reached the maximum selected tags
-    // b) "swapLastValue" is "true"
-    const showOptionsList = showOptions && (!this.isMaxTagsReached() || swapLastValue);
+    // is "true", but...
+    let showOptionsList = showOptions;
+    if(showOptionsList) {
+      // ... we must also check if we have reached the maximum selected tags and
+      // "swapLastValue" is "false"
+      if(this.isMaxTagsReached() && !swapLastValue) {
+        // ... in which case we shouldn't show the options list
+        showOptionsList = false;
+      }
+
+      // ... we must also check if "dontShowOptionsListIfEmpty" is "true" and
+      // if the options list is empty
+      if(dontShowOptionsListIfEmpty && options.length == 0) {
+        // ... in which case we shouldn't show the options list
+        showOptionsList = false;
+      }
+    }
 
     placeholder = placeholder ?? "Type and press enter";
 
