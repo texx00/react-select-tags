@@ -175,7 +175,7 @@ export default class ReactSelectTags extends React.Component {
       }
 
       // If input is blank, remove previous tag
-      this.removeTag(values.length - 1);
+      this.removeTag(values?.length - 1);
     }
     // On escape
     else if(e.keyCode === 27) {
@@ -237,7 +237,7 @@ export default class ReactSelectTags extends React.Component {
 
     swapLastValue = !!swapLastValue; // force boolean
 
-    const values = [ ...this.props.values ];
+    const values = [...this.props?.values || []];
 
     if(!values.includes(value)) {
       if(this.isMaxTagsReached() && swapLastValue) {
@@ -261,13 +261,13 @@ export default class ReactSelectTags extends React.Component {
       return;
     }
 
-    const values = [ ...this.props.values ];
+    const values = [...this.props?.values || []];
     values.splice(i, 1);
     this.props.onChange(values);
   }
 
   updateTag(i, value) {
-    const values = [...this.props.values];
+    const values = [...this.props?.values || []];
 
     const numOccurencesOfValue = values.reduce((prev, currentValue, index) => {
       return prev + (currentValue === value && index !== i ? 1 : 0);
@@ -284,7 +284,7 @@ export default class ReactSelectTags extends React.Component {
   getTags() {
     const { values, options } = this.props;
 
-    const vals = values.map(value => {
+    const vals = values?.map(value => {
       let obj = options.find(opt => opt.value == value);
 
       if(obj) {
@@ -298,7 +298,7 @@ export default class ReactSelectTags extends React.Component {
       }
 
       return obj;
-    });
+    }) || [];
 
     return vals;
   }
