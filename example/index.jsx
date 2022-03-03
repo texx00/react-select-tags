@@ -78,7 +78,6 @@ const initialSettings = {
     (searchPattern) => {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
-
           resolve([
             {label: "White", value: "white", group: "Dynamically loaded values"},
             {label: "Black", value: "black", group: "Dynamically loaded values"},
@@ -288,6 +287,19 @@ function Example() {
               onChange={(e) => setSettings({ ...settings, swapLastValue: e.target.checked })}
             />
             <label className="form-check-label" htmlFor="swapLastValue">On selection, if max tags limit is reached, swap the last selected value (instead of disabling the input)</label>
+          </div>
+        </div>
+
+        <div className="col-12 mb-3">
+          <div className="form-check">
+            <input
+              id="dontShowOptionsListIfEmpty"
+              className="form-check-input"
+              type="checkbox"
+              checked={!!settings.dontShowOptionsListIfEmpty}
+              onChange={(e) => setSettings({ ...settings, dontShowOptionsListIfEmpty: e.target.checked })}
+            />
+            <label className="form-check-label" htmlFor="dontShowOptionsListIfEmpty">Don't show the options list if there are no options</label>
           </div>
         </div>
 
