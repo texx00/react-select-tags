@@ -406,7 +406,7 @@ export default class ReactSelectTags extends React.Component {
           ${classSelectors.component}
           ${showOverflowedTags ? "showOverflowedTags" : ""}
           ${focused ? "focused" : ""}
-          ${className}
+          ${className ?? ""}
         `}
       >
 
