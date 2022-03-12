@@ -37,7 +37,7 @@ export class Options extends React.Component {
     groups.forEach(group => {
       opts.set(group, options.filter(opt => opt.group == group));
     });
-    return opts;
+    return [...opts];
   }
 
   loadAsyncOptions(searchPattern) {
@@ -107,7 +107,7 @@ export class Options extends React.Component {
 
         <div className={classSelectors.options}>
           {
-            Array.from(opts).map(([group, options], idx) => {
+            opts.map(([group, options], idx) => {
 
               return (
                 <div key={`${idx}-group`}>
