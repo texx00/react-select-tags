@@ -20,7 +20,7 @@
   "scripts": {
     "build": "rm -rf dist && parcel build",
     "build-example": "cd example && npm install && rm -rf example/dist && parcel build index.html",
-    "publish-example": "git checkout gh-pages && rm -rf *.js ; rm -rf *.map ; rm -rf *.css ; rm -rf index.html && mv dist/example/* . && git add *.js ; git add *.map ; git add *.css ; git add index.html && git add -u . && git commit -m 'Update demo' && git push && git checkout main",
+    "publish-example": "git checkout gh-pages && rm -rf *.js ; rm -rf *.map ; rm -rf *.css ; rm -rf index.html && mv example/dist/* . && git add *.js ; git add *.map ; git add *.css ; git add index.html && git add -u . && git commit -m 'Update demo' && git push && git checkout main",
     "example": "parcel ./example/index.html ./src/index.jsx"
   },
   "keywords": [
