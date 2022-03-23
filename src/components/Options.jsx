@@ -23,7 +23,7 @@ export class Options extends React.Component {
 
   componentDidMount() {
     this._isMounted = true;
-    this.loadAsyncOptions();
+    this.loadAsyncOptions(this.state.filter);
   }
 
   componentWillUnmount() {
