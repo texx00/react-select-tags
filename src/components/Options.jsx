@@ -14,7 +14,7 @@ export class Options extends React.Component {
     this._isMounted = false;
 
     this.state = {
-      filter: "",
+      filter: props.parent.state.filter,
       asyncFns: options.filter(opt => typeof opt == "function"),
       asyncOptions: cacheAsyncOptions ? asyncOptionsCacheStore.current : [],
       loading: false,
@@ -28,6 +28,7 @@ export class Options extends React.Component {
 
   componentWillUnmount() {
     this._isMounted = false;
+    this.props.parent.setState({ filter: this.state.filter });
  }
 
   getGroupedOptions(options) {

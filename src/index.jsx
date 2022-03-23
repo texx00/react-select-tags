@@ -15,6 +15,7 @@ export default class ReactSelectTags extends React.Component {
 
     this.state = {
       input: "",
+      filter: "",
       focused: false,
       invalid: false,
       showOptions: false,
@@ -462,6 +463,7 @@ export default class ReactSelectTags extends React.Component {
 
           {showOptionsList &&
             <Options
+              parent={this}
               tags={tags}
               cacheAsyncOptions={cacheAsyncOptions}
               asyncOptionsCacheStore={this.asyncOptionsCacheStore}
