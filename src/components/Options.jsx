@@ -14,7 +14,7 @@ export class Options extends React.Component {
     this._isMounted = false;
 
     this.state = {
-      filter: props.parent.state.filter,
+      filter: props.root.state.filter,
       asyncFns: options.filter(opt => typeof opt == "function"),
       asyncOptions: cacheAsyncOptions ? asyncOptionsCacheStore.current : [],
       loading: false,
@@ -28,7 +28,7 @@ export class Options extends React.Component {
 
   componentWillUnmount() {
     this._isMounted = false;
-    this.props.parent.setState({ filter: this.state.filter });
+    this.props.root.setState({ filter: this.state.filter });
  }
 
   getGroupedOptions(options) {
@@ -72,6 +72,7 @@ export class Options extends React.Component {
     } = this.props;
 
     const { asyncOptions, loading } = this.state;
+    const { root } = this.props;
 
     let opts = options.filter(opt => typeof opt != "function").concat(asyncOptions);
 
@@ -104,6 +105,7 @@ export class Options extends React.Component {
         <NotificatorComponent
           loading={loading}
           options={opts}
+          root={root}
         ></NotificatorComponent>
 
         <div className={classSelectors.options}>
@@ -112,7 +114,7 @@ export class Options extends React.Component {
 
               return (
                 <div key={`${idx}-group`}>
-                  <GroupComponent group={group}></GroupComponent>
+                  <GroupComponent root={root} group={group}></GroupComponent>
 
                   {
                     options.map((option, idx2) => {
@@ -121,7 +123,7 @@ export class Options extends React.Component {
                           key={`${idx2}-${option.value}`}
                           onClick={() => this.props.select(option.value)}
                         >
-                          <OptionComponent option={option}></OptionComponent>
+                          <OptionComponent root={root} option={option}></OptionComponent>
                         </div>
                       )
                     })

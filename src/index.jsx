@@ -423,6 +423,7 @@ export default class ReactSelectTags extends React.Component {
             <div className={classSelectors.tags} ref={this.tagsRef}>
               {tags.map((tag, index) => (
                 <Tag
+                  root={this}
                   key={tag.value}
                   tag={tag}
                   index={index}
@@ -463,7 +464,7 @@ export default class ReactSelectTags extends React.Component {
 
           {showOptionsList &&
             <Options
-              parent={this}
+              root={this}
               tags={tags}
               cacheAsyncOptions={cacheAsyncOptions}
               asyncOptionsCacheStore={this.asyncOptionsCacheStore}
