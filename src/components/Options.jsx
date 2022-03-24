@@ -72,7 +72,7 @@ export class Options extends React.Component {
     } = this.props;
 
     const { asyncOptions, loading } = this.state;
-    const { root } = this.props;
+    const { root, extra_props } = this.props;
 
     let opts = options.filter(opt => typeof opt != "function").concat(asyncOptions);
 
@@ -106,6 +106,7 @@ export class Options extends React.Component {
           loading={loading}
           options={opts}
           root={root}
+          extra_props={extra_props}
         ></NotificatorComponent>
 
         <div className={classSelectors.options}>
@@ -114,7 +115,11 @@ export class Options extends React.Component {
 
               return (
                 <div key={`${idx}-group`}>
-                  <GroupComponent root={root} group={group}></GroupComponent>
+                  <GroupComponent
+                    group={group}
+                    root={root}
+                    extra_props={extra_props}
+                  ></GroupComponent>
 
                   {
                     options.map((option, idx2) => {
@@ -123,7 +128,11 @@ export class Options extends React.Component {
                           key={`${idx2}-${option.value}`}
                           onClick={() => this.props.select(option.value)}
                         >
-                          <OptionComponent root={root} option={option}></OptionComponent>
+                          <OptionComponent
+                            option={option}
+                            root={root}
+                            extra_props={extra_props}
+                          ></OptionComponent>
                         </div>
                       )
                     })

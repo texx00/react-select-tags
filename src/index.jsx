@@ -331,6 +331,8 @@ export default class ReactSelectTags extends React.Component {
       GroupComponent,
       OptionComponent,
       NotificatorComponent,
+
+      extra_props,
     } = this.props;
 
     // If false, tags can't be added / removed
@@ -423,6 +425,7 @@ export default class ReactSelectTags extends React.Component {
             <div className={classSelectors.tags} ref={this.tagsRef}>
               {tags.map((tag, index) => (
                 <Tag
+                  extra_props={extra_props}
                   root={this}
                   key={tag.value}
                   tag={tag}
@@ -464,6 +467,7 @@ export default class ReactSelectTags extends React.Component {
 
           {showOptionsList &&
             <Options
+              extra_props={extra_props}
               root={this}
               tags={tags}
               cacheAsyncOptions={cacheAsyncOptions}
