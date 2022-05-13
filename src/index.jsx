@@ -289,7 +289,7 @@ export default class ReactSelectTags extends React.Component {
       let obj = options.find(opt => opt.value == value);
 
       if(obj) {
-        obj.__locked = true;
+        obj.__locked = "__locked" in obj ? obj.__locked : true;
       } else {
         obj = {
           label: value,
