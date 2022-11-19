@@ -51,7 +51,7 @@ export default class ReactSelectTags extends React.Component {
         overflowedTags = tags.filter(tag => tag.offsetTop > baseOffset);
       }
 
-      if(this.state.overflowedTags != overflowedTags.length) {
+      if(this.state.overflowedTags !== overflowedTags.length) {
         this.setState({ overflowedTags: overflowedTags.length });
       }
     }
@@ -81,7 +81,7 @@ export default class ReactSelectTags extends React.Component {
 
   handleClickOutside(event) {
     if (this.componentRef && !this.componentRef.current.contains(event.target)) {
-      if(this._alreadyHandledClickOutside == false) {
+      if(this._alreadyHandledClickOutside === false) {
         this.closeOptions();
         this.setState({
           showOverflowedTags: false,
@@ -112,7 +112,7 @@ export default class ReactSelectTags extends React.Component {
   onBlur() {
     const { input } = this.state;
 
-    if(input == "") {
+    if(input === "") {
       this.setState({ invalid: false });
       return;
     }
@@ -120,7 +120,8 @@ export default class ReactSelectTags extends React.Component {
     // Add input to values list, if valid
     if(this.validateTag(input)) {
       this.setState({ invalid: false });
-      this.addTag(input);
+      if (!this.props.clearInputOnSelect)
+        this.addTag(input);
     } else {
       this.setState({ invalid: true });
     }
@@ -188,7 +189,7 @@ export default class ReactSelectTags extends React.Component {
     else if(e.keyCode === 27) {
       if(showOptions) {
         this.closeOptions();
-      } else if(input != "") {
+      } else if(input !== "") {
         this.setState({ input: "" });
       }
     }
@@ -213,7 +214,7 @@ export default class ReactSelectTags extends React.Component {
     minTags = Number(minTags) || 0; // force integer
 
     // Check if we're over the minimum selected tags
-    return minTags !== 0 ? tags.length == minTags : false;
+    return minTags !== 0 ? tags.length === minTags : false;
   }
 
   isMaxTagsReached() {
@@ -292,7 +293,7 @@ export default class ReactSelectTags extends React.Component {
     const { values, options } = this.props;
 
     const vals = values?.map(value => {
-      let obj = options.find(opt => opt.value == value);
+      let obj = options.find(opt => opt.value === value);
 
       if(obj) {
         obj.__locked = "__locked" in obj ? obj.__locked : true;
@@ -325,7 +326,6 @@ export default class ReactSelectTags extends React.Component {
       options,
       readOnly,
       editable,
-      maxTags,
       className,
       placeholder,
       swapLastValue,
@@ -333,6 +333,7 @@ export default class ReactSelectTags extends React.Component {
       cacheAsyncOptions,
       dontShowOptionsListIfEmpty,
       keepOptionsOpenAfterSelect,
+      hideSearch,
 
       GroupComponent,
       OptionComponent,
@@ -360,8 +361,6 @@ export default class ReactSelectTags extends React.Component {
     // list gets unmounted, and rendered along with the static options on the
     // next mount.
     cacheAsyncOptions = !!(cacheAsyncOptions ?? true); // force boolean, default to true
-
-    maxTags = Number(maxTags) || 0; // force integer
 
     swapLastValue = !!swapLastValue; // force boolean
 
@@ -399,8 +398,8 @@ export default class ReactSelectTags extends React.Component {
       const _options = options.filter(opt => !selectedValues.includes(opt.value));
       if(
         dontShowOptionsListIfEmpty && (
-          _options.length == 0 &&
-          options.filter(opt => typeof opt == "function").length == 0
+          _options.length === 0 &&
+          options.filter(opt => typeof opt == "function").length === 0
         )
       ) {
         // ... in which case we shouldn't show the options list
@@ -416,6 +415,7 @@ export default class ReactSelectTags extends React.Component {
           ${showOverflowedTags ? "showOverflowedTags" : ""}
           ${focused ? "focused" : ""}
           ${className ?? ""}
+          ${hideSearch ? "hideSearch" : ""}
         `}
       >
 
