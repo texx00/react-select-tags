@@ -17,7 +17,7 @@ export class Tag extends React.Component {
     const { tag, validator, update, remove, index } = this.props;
     const { input } = this.state;
 
-    if(input == tag.value) return;
+    if(input === tag.value) return;
 
     if(input) {
       if(validator(input)) {
@@ -74,7 +74,7 @@ export class Tag extends React.Component {
     else if(e.keyCode === 27) {
       // If the current input value is different that the initial value, reset
       // it...
-      if(this.state.input != tag.value) {
+      if(this.state.input !== tag.value) {
         this.setState({ input: tag.value });
       }
       // else, it means that the user hit Esc again (after resetting the input

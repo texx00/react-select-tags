@@ -12,7 +12,7 @@ export const Notificator = (props) => {
     );
   }
 
-  if(!loading && options.length == 0) {
+  if(!loading && options.length === 0) {
     return (
       <div className={classSelectors.message}>
         <div>There are no options</div>

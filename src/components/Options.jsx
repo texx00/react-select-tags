@@ -36,7 +36,7 @@ export class Options extends React.Component {
 
     const opts = new Map();
     groups.forEach(group => {
-      opts.set(group, options.filter(opt => opt.group == group));
+      opts.set(group, options.filter(opt => opt.group === group));
     });
     return [...opts];
   }
@@ -123,10 +123,14 @@ export class Options extends React.Component {
 
                   {
                     options.map((option, idx2) => {
+                      console.log(this.props.highlightPosition === idx2)
+                      let highlighted = idx2 === this.props.highlightedPosition ? "highlighted" : "";
                       return (
                         <div
                           key={`${idx2}-${option.value}`}
                           onClick={() => this.props.select(option.value)}
+                          className={highlighted}
+                          onMouseOver={()=>this.props.updateHighlightedPosition(idx2)}
                         >
                           <OptionComponent
                             option={option}

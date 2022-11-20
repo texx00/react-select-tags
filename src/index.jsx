@@ -22,6 +22,7 @@ export default class ReactSelectTags extends React.Component {
       showOptions: false,
       showOverflowedTags: false,
       overflowedTags: 0,
+      highlightedPosition: -1,
     };
 
     // Ref for the component itself
@@ -79,6 +80,10 @@ export default class ReactSelectTags extends React.Component {
     document.removeEventListener('mousedown', this.handleClickOutside, true);
   }
 
+  updateHighlightedPosition(val){
+    this.setState({highlightedPosition: Math.min(Math.max(val, -1), this.props.options.length-1)});
+  }
+
   handleClickOutside(event) {
     if (this.componentRef && !this.componentRef.current.contains(event.target)) {
       if(this._alreadyHandledClickOutside === false) {
@@ -120,7 +125,7 @@ export default class ReactSelectTags extends React.Component {
     // Add input to values list, if valid
     if(this.validateTag(input)) {
       this.setState({ invalid: false });
-      if (!this.props.clearInputOnSelect)
+      if (this.state.highlightedPosition === -1)
         this.addTag(input);
     } else {
       this.setState({ invalid: true });
@@ -162,7 +167,11 @@ export default class ReactSelectTags extends React.Component {
       // Add input to tags list, if valid
       if(this.validateTag(input)) {
         this.setState({ invalid: false });
-        this.addTag(input);
+        if (this.state.highlightedPosition>=0){
+          this.addTag(this.props.options[this.state.highlightedPosition].value);
+          this.setState({input: ""});
+        }
+        else this.addTag(input);
 
         // Keep the options list open after selection
         keepOptionsOpenAfterSelect = !!keepOptionsOpenAfterSelect; // force boolean
@@ -176,6 +185,7 @@ export default class ReactSelectTags extends React.Component {
     }
     // On backspace or delete
     else if(removeOnBackspace && (e.keyCode === 8 || e.keyCode === 46)) {
+      this.updateHighlightedPosition(-1);
       // If currently typing, do nothing
       if (input !== "") {
         this.setState({ invalid: false });
@@ -193,8 +203,24 @@ export default class ReactSelectTags extends React.Component {
         this.setState({ input: "" });
       }
     }
+    // On tab or arrow down
+    else if (e.keyCode === 9 || e.keyCode === 40){
+      if (this.props.options.length > 0){
+        e.preventDefault(); // should prevent default only if there is something in the options list
+        this.updateHighlightedPosition(this.state.highlightedPosition+1);
+        this.openOptions();
+      }
+    }
+    // On back-tab or arrow up
+    else if (((e.keyCode === 9) && e.shiftKey ) || e.keyCode === 38){
+      if (this.props.options.length >0){
+        e.preventDefault();  // should prevent default only if it is not on the first line of the options
+        this.updateHighlightedPosition(this.state.highlightedPosition-1);
+      }
+    }
     // We can't assure if the input if valid or not, so mark it as invalid...
     else {
+      this.openOptions();
       this.setState({ invalid: false });
     }
   }
@@ -204,7 +230,7 @@ export default class ReactSelectTags extends React.Component {
   }
 
   closeOptions() {
-    this.setState({ showOptions: false });
+    this.setState({ showOptions: false, highlightedPosition: -1 });
   }
 
   isMinTagsReached() {
@@ -406,6 +432,7 @@ export default class ReactSelectTags extends React.Component {
         showOptionsList = false;
       }
     }
+    console.log(this.state.highlightedPosition)
 
     return (
       <div
@@ -474,6 +501,8 @@ export default class ReactSelectTags extends React.Component {
           {showOptionsList &&
             <Options
               extra_props={extra_props}
+              highlightedPosition={this.state.highlightedPosition}
+              updateHighlightedPosition={this.updateHighlightedPosition.bind(this)}
               root={this}
               tags={tags}
               cacheAsyncOptions={cacheAsyncOptions}
