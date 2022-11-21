@@ -432,7 +432,6 @@ export default class ReactSelectTags extends React.Component {
         showOptionsList = false;
       }
     }
-    console.log(this.state.highlightedPosition)
 
     return (
       <div

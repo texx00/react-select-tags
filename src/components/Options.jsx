@@ -123,7 +123,6 @@ export class Options extends React.Component {
 
                   {
                     options.map((option, idx2) => {
-                      console.log(this.props.highlightPosition === idx2)
                       let highlighted = idx2 === this.props.highlightedPosition ? "highlighted" : "";
                       return (
                         <div
