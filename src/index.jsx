@@ -126,7 +126,11 @@ export default class ReactSelectTags extends React.Component {
     if(this.validateTag(input)) {
       this.setState({ invalid: false });
       if (this.state.highlightedPosition === -1)
-        this.addTag(input);
+        this.addTag({
+          label: input,
+          value: -1,
+          __locked: false
+        });
     } else {
       this.setState({ invalid: true });
     }
@@ -168,10 +172,14 @@ export default class ReactSelectTags extends React.Component {
       if(this.validateTag(input)) {
         this.setState({ invalid: false });
         if (this.state.highlightedPosition>=0){
-          this.addTag(this.props.options[this.state.highlightedPosition].value);
+          this.addTag(this.props.options[this.state.highlightedPosition]);
           this.setState({input: ""});
         }
-        else this.addTag(input);
+        else this.addTag({
+          label: input,
+          value: -1,
+          __locked: false
+        });
 
         // Keep the options list open after selection
         keepOptionsOpenAfterSelect = !!keepOptionsOpenAfterSelect; // force boolean
@@ -316,23 +324,13 @@ export default class ReactSelectTags extends React.Component {
   }
 
   getTags() {
-    const { values, options } = this.props;
+    const { values } = this.props;
 
-    const vals = values?.map(value => {
-      let obj = options.find(opt => opt.value === value);
+    const vals = values?.map(tag => {
+      tag.__locked = "__locked" in tag ? tag.__locked : true;
 
-      if(obj) {
-        obj.__locked = "__locked" in obj ? obj.__locked : true;
-      } else {
-        obj = {
-          label: value,
-          value,
-          __locked: false,
-        };
-      }
-
-      return obj;
-    }) || [];
+      return tag;
+    });
 
     return vals;
   }
@@ -346,6 +344,7 @@ export default class ReactSelectTags extends React.Component {
       showOptions,
       showOverflowedTags,
       overflowedTags,
+      highlightedPosition
     } = this.state;
 
     let {
@@ -459,7 +458,7 @@ export default class ReactSelectTags extends React.Component {
                 <Tag
                   extra_props={extra_props}
                   root={this}
-                  key={tag.value}
+                  key={index + "-" + tag.value}
                   tag={tag}
                   index={index}
                   editable={isEditable}
@@ -500,7 +499,7 @@ export default class ReactSelectTags extends React.Component {
           {showOptionsList &&
             <Options
               extra_props={extra_props}
-              highlightedPosition={this.state.highlightedPosition}
+              highlightedPosition={highlightedPosition}
               updateHighlightedPosition={this.updateHighlightedPosition.bind(this)}
               root={this}
               tags={tags}
@@ -509,7 +508,7 @@ export default class ReactSelectTags extends React.Component {
               options={options}
               filter={this.props.filter ?? filter}
               select={(value) => {
-                this.addTag(value);
+                this.addTag(options.filter(opt=>opt.value===value)[0]);
 
                 if(!keepOptionsOpenAfterSelect) {
                   this.closeOptions();
